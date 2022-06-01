@@ -8,24 +8,34 @@
 using namespace std; 
 
 
-vector<vector<int> > permuteUnique(vector<int>& nums) {
-        std::set<vector<int> > res; 
-        // helper(res, nums, nums.size()); 
-        // vector<vector<int>> v(res.begin(), res.end());
-        // return v; 
-        do{
-            res.insert(nums);
-        }while(std::next_permutation(nums.begin(), nums.end()));
-        
-        vector<vector<int> > res_vec(res.begin(), res.end()); 
-        return res_vec; 
+void helper(vector<vector<int>>& a, vector<int> part, int n, int k){
+        if(part.size() == k){
+            a.push_back(part); 
+            part.pop_back(); 
+            return; 
+        }
+        else{
+            for(int i = 1; i <= n; ++i){
+            part.push_back(i); 
+            helper(a, part, n, k); 
+            part.pop_back(); 
+        }
+        }
+    }
+
+
+vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> res; 
+        vector<int> b;
+        helper(res, b, n, k); 
+        return res; 
 }
 
 int main(int argc, char* argv[]){
 
     vector<int> t = {1, 1, 2}; 
 
-    vector<vector<int> > d = permuteUnique(t); 
+    vector<vector<int> > d = combine(4, 2); 
 
     for(int i = 0; i < d.size(); ++i){
         for(int j = 0; j < d[i].size(); ++j){
