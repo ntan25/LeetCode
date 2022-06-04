@@ -3,49 +3,46 @@
 #include <set> 
 #include <map> 
 #include <vector> 
+#include <string>
 
 
 using namespace std; 
 
 
-int searchInsert(vector<int>& nums, int target) {
-       
-        //probs binary search
-        int low = 0; 
-        int high = nums.size(); 
-        int mid;
+bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        string w1 = ""; 
+        string w2 = ""; 
+        for(int i = 0; i < word1.size(); ++i){
+            w1 += word1[i]; 
+        }
+        for(int i = 0; i < word2.size(); ++i){
+            w2 += word2[i]; 
+        }
         
-        if(target <= nums[0]) return 0; 
-        if(target >= nums[nums.size() - 1]) return nums.size(); 
+        if(w1.size() != w2.size()) return false; 
         
-        while(low <= high){ 
-            mid = (low + high) / 2; 
-            if(nums[mid] == target){
-                 return mid; 
-            }
-            else if (nums[mid] < target){ 
-                low = mid + 1; 
+        for(int i = 0; i < word1.size(); ++i){
+            if(w1[i] != w2[i]){
+                return false; 
             }
             else{
-                high = mid - 1; 
+                continue; 
             }
         }
-        if(nums[mid] > target) return mid; 
-        else return mid + 1;  
-    }
+        
+        return true; 
+}
 
 int main(int argc, char* argv[]){
 
-    vector<int> t = {1, 3, 5}; 
+    vector<string> o{"wxgdwznoledlfeoilewsjziotnncyebhwpdnnimcorzovuiig", "lycfb"}; 
+    vector<string> q{"wxgdwznoledlfeoilewsjzio", "tnncyebhwpdnnimcor", "iigl","yc","f","b","hnjm"}; 
 
-    int r = searchInsert(t, 4);
-
-    cout << (2+3) / 2 << endl;  
-
-    cout << r << endl; 
+    cout << arrayStringsAreEqual(o, q) << endl; 
 
 
 
     return 0; 
 }
+
 
